@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class BugAI : MonoBehaviour
 {
@@ -10,13 +10,23 @@ public class BugAI : MonoBehaviour
     [SerializeField]
     PlaceTile _tileManager;
 
+    public SpriteRenderer healthBar;
+
     public float movementSpeed = 10f;
     public float movementInertia = 200f;
-    public int health = 100;
+    public int maxHealth = 20;
     public int attack = 10;
 
     Vector3 currentMovement;
     Vector3 currentLook;
+
+    int health;
+
+    void Start()
+    {
+        health = maxHealth;    
+        healthBar.enabled = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -49,6 +59,23 @@ public class BugAI : MonoBehaviour
     public void SetTileManager(PlaceTile tileManager)
     {
         _tileManager = tileManager;
+    }
+
+    public void Hurt(int damage)
+    {
+        Debug.Log("hurt");
+        health -= damage;
+        UpdateHealthBar();
+        if (health <= 0)
+        {
+            Destroy(gameObject, 0.1f);
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        healthBar.enabled = true;
+        healthBar.transform.localScale = new Vector3( .9f * health / maxHealth, .1f, 1f);
     }
 
     private int FindClosestPathTile()

@@ -23,7 +23,7 @@ public class CoreBehaviour : MonoBehaviour
         return health;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         BugAI bug;
         if (collision.gameObject.TryGetComponent(out bug))
