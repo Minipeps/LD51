@@ -6,8 +6,15 @@ using UnityEngine.Tilemaps;
 // TODO: rename to TileManager
 public class PlaceTile : MonoBehaviour
 {
+    enum PlacementType
+    {
+        Tile,
+        Turret
+    };
     public GameObject spawn;
     public GameObject core;
+
+    public GameObject selectedTurret;
 
     public Tile selectedTile;
     public Tile backgroundTile;
@@ -22,6 +29,10 @@ public class PlaceTile : MonoBehaviour
     NavigateTilemap navigator;
 
     List<Vector3Int> currentPath;
+
+    PlacementType placementType = PlacementType.Tile;
+
+    Dictionary<Vector3Int, GameObject> turrets = new Dictionary<Vector3Int, GameObject>();
 
     // Start is called before the first frame update
     void Awake()
@@ -38,12 +49,22 @@ public class PlaceTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            placeTile();
+            if (placementType == PlacementType.Tile)
+            {
+                placeTile();
+            }
+            else if (placementType == PlacementType.Turret)
+                placeTurret();
         }
        else if (Input.GetMouseButtonDown(1))
         {
-            deleteTile();
-            RefreshPath(spawn.transform.position, core.transform.position);
+            if (placementType == PlacementType.Tile)
+            {
+                deleteTile();
+                RefreshPath(spawn.transform.position, core.transform.position);
+            }
+            else if (placementType == PlacementType.Turret)
+                deleteTurret();
         }
     }
     public bool RefreshPath(Vector3 start, Vector3 end)
@@ -67,6 +88,20 @@ public class PlaceTile : MonoBehaviour
     {
         return currentPath;
     }
+
+    public void SelectTile(Tile newTile)
+    {
+        selectedTile = newTile;
+        placementType = PlacementType.Tile;
+
+    }
+
+    public void SelectTurret(GameObject newTurret)
+    {
+        placementType = PlacementType.Turret;
+        selectedTurret = newTurret;
+    }
+
 
     public bool placeTile()
     {
@@ -105,6 +140,42 @@ public class PlaceTile : MonoBehaviour
         tilemap.SetTile(cellCoord, backgroundTile);
     }
 
+    public bool placeTurret()
+    {
+        var tileCoord = getHoveredWorldCoord();
+
+        var cellCoord = tilemap.WorldToCell(tileCoord);
+
+        if (!isInPlayableArea(cellCoord))
+            return false;
+
+        // Check tile can get a turret
+        var tile = tilemap.GetTile<Tile>(cellCoord);
+        if (tile.colliderType == Tile.ColliderType.None)
+        {
+            Debug.Log("Turret must be placed on a wall!");
+            return false;
+        }
+
+        Vector3 offset = tilemap.cellSize / 2;
+        var turret = Instantiate(selectedTurret, tilemap.CellToWorld(cellCoord) + offset, Quaternion.identity);
+        turrets.Add(cellCoord, turret);
+        return true;
+    }
+
+    public void deleteTurret()
+    {
+        var tileCoord = getHoveredWorldCoord();
+
+        var cellCoord = tilemap.WorldToCell(tileCoord);
+
+        if (!isInPlayableArea(cellCoord))
+            return;
+
+        GameObject turret;
+        turrets.Remove(cellCoord, out turret);
+        Destroy(turret, 0.1f);
+    }
 
     private Vector3 getHoveredWorldCoord()
     {

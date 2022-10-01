@@ -12,6 +12,7 @@ public class MobSpawner : MonoBehaviour
     public PlaceTile tileManager;
 
     float lastSpawnTime = 0;
+    int waveNumber = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,10 @@ public class MobSpawner : MonoBehaviour
         }
     }
 
+    public int GetWaveNumber()
+    {
+        return waveNumber;
+    }
 
     public float GetTimeSinceLastSpawn()
     {
@@ -43,10 +48,10 @@ public class MobSpawner : MonoBehaviour
 
     private void Spawn()
     {
+        waveNumber++;
+
         var newMob = Instantiate(mob, gameObject.transform).GetComponent<BugAI>();
         newMob.SetTarget(core);
         newMob.SetTileManager(tileManager);
-
-        //newMob.GetComponent<BugAI>().UpdateMovementData( (core.transform.position - mob.transform.position).normalized);
     }
 }

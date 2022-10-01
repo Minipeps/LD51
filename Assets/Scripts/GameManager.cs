@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public CoreBehaviour core;
     public MobSpawner spawner;
 
+    // Game settings
+    public int startCoins = 1000;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,9 @@ public class GameManager : MonoBehaviour
     {
         // Update UI
         healthBar.value = core.GetHealth();
-        timerBar.value = 10 - spawner.GetTimeSinceLastSpawn(); 
+        healthBar.GetComponentInChildren<Text>().text = "Health: " + core.GetHealth() + " / 1000";
+        timerBar.value = 10 - spawner.GetTimeSinceLastSpawn();
+        timerBar.GetComponentInChildren<Text>().text = "Next: Wave " + (spawner.GetWaveNumber() + 1);
+
     }
 }
