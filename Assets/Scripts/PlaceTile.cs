@@ -13,6 +13,7 @@ public class PlaceTile : MonoBehaviour
     };
     public GameObject spawn;
     public GameObject core;
+    public Shop shop;
 
     public GameObject selectedTurret;
 
@@ -49,22 +50,32 @@ public class PlaceTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            bool didBuy = false;
             if (placementType == PlacementType.Tile)
             {
-                placeTile();
+                didBuy = placeTile();
             }
             else if (placementType == PlacementType.Turret)
-                placeTurret();
+            {
+                didBuy = placeTurret();
+            }
+            if (didBuy)
+                shop.BuyItem();
         }
        else if (Input.GetMouseButtonDown(1))
         {
+            bool didSell = false;
             if (placementType == PlacementType.Tile)
             {
-                deleteTile();
+                didSell = deleteTile();
                 RefreshPath(spawn.transform.position, core.transform.position);
             }
             else if (placementType == PlacementType.Turret)
-                deleteTurret();
+            {
+                didSell = deleteTurret();
+            }
+            if (didSell)
+                shop.SellItem();
         }
     }
     public bool RefreshPath(Vector3 start, Vector3 end)
@@ -110,7 +121,7 @@ public class PlaceTile : MonoBehaviour
         var cellCoord = tilemap.WorldToCell(tileCoord);
 
 
-        if (!isInPlayableArea(cellCoord))
+        if (!isInPlayableArea(cellCoord) || !shop.CanAffordCurrentItem())
             return false;
 
         tilemap.SetTile(cellCoord, selectedTile);
@@ -127,7 +138,7 @@ public class PlaceTile : MonoBehaviour
         return true;
     }
 
-    public void deleteTile()
+    public bool deleteTile()
     {
         var tileCoord = getHoveredWorldCoord();
 
@@ -135,9 +146,15 @@ public class PlaceTile : MonoBehaviour
         Debug.Log("Clicked at " + cellCoord);
 
         if (!isInPlayableArea(cellCoord))
-            return;
+            return false;
+
+        // Check tile can be deleted
+        var tile = tilemap.GetTile<Tile>(cellCoord);
+        if (tile.colliderType == Tile.ColliderType.None || turrets.ContainsKey(cellCoord))
+            return false;
 
         tilemap.SetTile(cellCoord, backgroundTile);
+        return true;
     }
 
     public bool placeTurret()
@@ -146,7 +163,7 @@ public class PlaceTile : MonoBehaviour
 
         var cellCoord = tilemap.WorldToCell(tileCoord);
 
-        if (!isInPlayableArea(cellCoord))
+        if (!isInPlayableArea(cellCoord) || ! shop.CanAffordCurrentItem())
             return false;
 
         // Check tile can get a turret
@@ -163,18 +180,19 @@ public class PlaceTile : MonoBehaviour
         return true;
     }
 
-    public void deleteTurret()
+    public bool deleteTurret()
     {
         var tileCoord = getHoveredWorldCoord();
 
         var cellCoord = tilemap.WorldToCell(tileCoord);
 
         if (!isInPlayableArea(cellCoord))
-            return;
+            return false;
 
         GameObject turret;
-        turrets.Remove(cellCoord, out turret);
+        bool deleted = turrets.Remove(cellCoord, out turret);
         Destroy(turret, 0.1f);
+        return deleted;
     }
 
     private Vector3 getHoveredWorldCoord()

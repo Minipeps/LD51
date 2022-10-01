@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 183174079}
   - component: {fileID: 183174078}
   - component: {fileID: 183174077}
+  - component: {fileID: 183174080}
   m_Layer: 5
   m_Name: Wall
   m_TagString: Untagged
@@ -524,7 +525,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5566038, g: 0, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -555,6 +556,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 523419875}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SetSelectedItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 183174080}
+          m_ObjectArgumentAssemblyTypeName: ShopButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &183174080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183174075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d20374f5f9e3f14fb0b54e02d497b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 10
 --- !u!1 &354599988
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +903,7 @@ GameObject:
   - component: {fileID: 523419873}
   - component: {fileID: 523419872}
   - component: {fileID: 523419874}
+  - component: {fileID: 523419875}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -909,7 +936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -31.999939, y: 0}
+  m_AnchoredPosition: {x: -32, y: 0}
   m_SizeDelta: {x: 290, y: -50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &523419872
@@ -976,6 +1003,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &523419875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523419870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344a7e0f0fe229d4981e43a51255950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedButton: {fileID: 0}
 --- !u!1 &527571938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1352,7 @@ GameObject:
   - component: {fileID: 821599310}
   - component: {fileID: 821599309}
   - component: {fileID: 821599308}
+  - component: {fileID: 821599311}
   m_Layer: 5
   m_Name: Tier1
   m_TagString: Untagged
@@ -1396,20 +1437,20 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 343834107b1b6af4aab612c2a05fea75, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1433,6 +1474,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 523419875}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SetSelectedItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 821599311}
+          m_ObjectArgumentAssemblyTypeName: ShopButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &821599311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821599306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d20374f5f9e3f14fb0b54e02d497b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 100
 --- !u!1 &1007222005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,6 +1611,7 @@ GameObject:
   - component: {fileID: 1010660112}
   - component: {fileID: 1010660111}
   - component: {fileID: 1010660110}
+  - component: {fileID: 1010660113}
   m_Layer: 5
   m_Name: Tier1 (1)
   m_TagString: Untagged
@@ -1629,20 +1696,20 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 343834107b1b6af4aab612c2a05fea75, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1656,16 +1723,41 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1650356627}
         m_TargetAssemblyTypeName: PlaceTile, Assembly-CSharp
-        m_MethodName: SetSelectedTile
+        m_MethodName: SelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Tilemaps.Tile, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 523419875}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SetSelectedItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1010660113}
+          m_ObjectArgumentAssemblyTypeName: ShopButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1010660113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010660108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d20374f5f9e3f14fb0b54e02d497b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 250
 --- !u!1 &1178434791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,13 +1869,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 8
+    m_Alignment: 5
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999,999
+  m_Text: 999 999
 --- !u!222 &1200028659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12666,6 +12758,7 @@ GameObject:
   - component: {fileID: 1633075538}
   - component: {fileID: 1633075537}
   - component: {fileID: 1633075536}
+  - component: {fileID: 1633075539}
   m_Layer: 5
   m_Name: Tier1 (2)
   m_TagString: Untagged
@@ -12750,20 +12843,20 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 343834107b1b6af4aab612c2a05fea75, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -12777,16 +12870,41 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1650356627}
         m_TargetAssemblyTypeName: PlaceTile, Assembly-CSharp
-        m_MethodName: SetSelectedTile
+        m_MethodName: SelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Tilemaps.Tile, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 523419875}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SetSelectedItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1633075539}
+          m_ObjectArgumentAssemblyTypeName: ShopButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1633075539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633075534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d20374f5f9e3f14fb0b54e02d497b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 500
 --- !u!1 &1650356623
 GameObject:
   m_ObjectHideFlags: 0
@@ -12872,6 +12990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 1007222005}
   core: {fileID: 635164272}
+  shop: {fileID: 523419875}
   selectedTurret: {fileID: 0}
   selectedTile: {fileID: 11400000, guid: 6f2fef21313dbcc49830f402b34ed6ff, type: 2}
   backgroundTile: {fileID: 11400000, guid: f2c19ba7f746b1841a7426a00ea63790, type: 2}
@@ -12894,9 +13013,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1402420035}
   timerBar: {fileID: 673878113}
+  bank: {fileID: 1200028658}
+  shop: {fileID: 523419875}
   core: {fileID: 635164276}
   spawner: {fileID: 1007222006}
-  startCoins: 1000
+  startCoins: 200
 --- !u!1 &1702078696
 GameObject:
   m_ObjectHideFlags: 0
@@ -13052,6 +13173,7 @@ GameObject:
   - component: {fileID: 2076529396}
   - component: {fileID: 2076529395}
   - component: {fileID: 2076529394}
+  - component: {fileID: 2076529397}
   m_Layer: 5
   m_Name: Tier1 (3)
   m_TagString: Untagged
@@ -13136,20 +13258,20 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 7c1de1b32d2ca734a8e70460cd8ce4b6, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 343834107b1b6af4aab612c2a05fea75, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -13163,13 +13285,38 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1650356627}
         m_TargetAssemblyTypeName: PlaceTile, Assembly-CSharp
-        m_MethodName: SetSelectedTile
+        m_MethodName: SelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Tilemaps.Tile, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 523419875}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SetSelectedItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2076529397}
+          m_ObjectArgumentAssemblyTypeName: ShopButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2076529397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076529392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d20374f5f9e3f14fb0b54e02d497b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 1000
