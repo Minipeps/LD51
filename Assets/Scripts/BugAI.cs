@@ -11,14 +11,12 @@ public class BugAI : MonoBehaviour
     PlaceTile _tileManager;
 
     public float movementSpeed = 10f;
-    public float movementInertia = 1000f;
+    public float movementInertia = 200f;
     public int health = 100;
+    public int attack = 10;
 
     Vector3 currentMovement;
     Vector3 currentLook;
-
-    float UPDATE_PATH_TIME = 0.01f;
-    float timeSinceLastUpdate = 0f;
 
     // Update is called once per frame
     void Update()
@@ -26,23 +24,16 @@ public class BugAI : MonoBehaviour
         transform.position += currentMovement * Time.deltaTime * movementSpeed;
         // TODO: look toward moving direction
 
-        if (timeSinceLastUpdate > UPDATE_PATH_TIME)
-        {
-            timeSinceLastUpdate = 0;
-            var index = FindClosestPathTile();
-
-            if (index < CurrentPath().Count - 1)
-                UpdateMovementData(CurrentPath()[index + 1] - CurrentPath()[index]);
-        }
+        var index = FindClosestPathTile();
+        if (index < CurrentPath().Count - 1)
+            UpdateMovementData(CurrentPath()[index+1] + new Vector3Int(1, 0) - transform.position);
         else
-        {
-            timeSinceLastUpdate += Time.deltaTime;
-        }
+            UpdateMovementData(Vector3.zero);
     }
 
     public void UpdateMovementData(Vector3 newMovement)
     {
-        currentMovement = Vector3.Lerp(currentMovement, newMovement.normalized, movementInertia * Time.deltaTime);
+        currentMovement = Vector3.Lerp(currentMovement, newMovement, movementInertia * Time.deltaTime);
     }
 
     public void SetTarget(GameObject target)

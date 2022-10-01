@@ -30,3 +30,6 @@ tower defense style ? new waves every 10s, don't get overwhelmed -> no pause (as
 - IA: using A* pathfinding algorithm? (or maybe unity builtin if exists)
 - In case of 2d character moving: each wave there are some bonus that you can try to collect, but their positions changes every 10s
 - color of the enemy define its rank (health points + money gains)
+
+Those little buggers are trying to infiltrate your system! Defend yourself against them in this wild tower defense game.
+How long will you be able to keep up?

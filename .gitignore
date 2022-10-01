@@ -74,3 +74,6 @@ crashlytics-build.properties
 
 # VSCode
 .vscode/
+
+# Krita
+*.kra*
