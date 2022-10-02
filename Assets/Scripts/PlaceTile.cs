@@ -15,6 +15,7 @@ public class PlaceTile : MonoBehaviour
     public GameObject core;
     public Shop shop;
 
+    public Item selectedTurretType;
     public GameObject selectedTurret;
 
     public Tile selectedTile;
@@ -34,6 +35,7 @@ public class PlaceTile : MonoBehaviour
     PlacementType placementType = PlacementType.Tile;
 
     Dictionary<Vector3Int, GameObject> turrets = new Dictionary<Vector3Int, GameObject>();
+    Dictionary<Vector3Int, Item> turretTypes = new Dictionary<Vector3Int, Item>();
 
     bool canPlaceTile = false;
 
@@ -69,18 +71,16 @@ public class PlaceTile : MonoBehaviour
         }
        else if (Input.GetMouseButtonDown(1))
         {
-            bool didSell = false;
-            if (placementType == PlacementType.Tile)
+            Item turretType;
+            if (deleteTurret(out turretType))
             {
-                didSell = deleteTile();
-                RefreshPath(spawn.transform.position, core.transform.position);
+                shop.SellItem(turretType);
             }
-            else if (placementType == PlacementType.Turret)
+            else if (deleteTile())
             {
-                didSell = deleteTurret();
+                shop.SellItem(Item.Wall);
+                   RefreshPath(spawn.transform.position, core.transform.position);
             }
-            if (didSell)
-                shop.SellItem();
         }
     }
 
@@ -102,6 +102,7 @@ public class PlaceTile : MonoBehaviour
             Destroy(turret.Value, 0.1f);
         }
         turrets.Clear();
+        turretTypes.Clear();
 
         // Remove all walls
         for (int x = topLeftBounds.x + 1; x < bottomRightBounds.x; ++x)
@@ -140,13 +141,13 @@ public class PlaceTile : MonoBehaviour
     {
         selectedTile = newTile;
         placementType = PlacementType.Tile;
-
     }
 
-    public void SelectTurret(GameObject newTurret)
+    public void SelectTurret(TurretBehaviour newTurret)
     {
         placementType = PlacementType.Turret;
-        selectedTurret = newTurret;
+        selectedTurret = newTurret.gameObject;
+        selectedTurretType = newTurret.type;
     }
 
 
@@ -193,7 +194,7 @@ public class PlaceTile : MonoBehaviour
 
         // Check tile can be deleted
         var tile = tilemap.GetTile<Tile>(cellCoord);
-        if (tile.colliderType == Tile.ColliderType.None || turrets.ContainsKey(cellCoord))
+        if (tile.colliderType == Tile.ColliderType.None)
             return false;
 
         tilemap.SetTile(cellCoord, backgroundTile);
@@ -227,11 +228,14 @@ public class PlaceTile : MonoBehaviour
         Vector3 offset = tilemap.cellSize / 2;
         var turret = Instantiate(selectedTurret, tilemap.CellToWorld(cellCoord) + offset, Quaternion.identity);
         turrets.Add(cellCoord, turret);
+        turretTypes.Add(cellCoord, selectedTurretType);
         return true;
     }
 
-    public bool deleteTurret()
+    public bool deleteTurret(out Item turretType)
     {
+        turretType = Item.TurretBase;
+
         var tileCoord = getHoveredWorldCoord();
 
         var cellCoord = tilemap.WorldToCell(tileCoord);
@@ -241,6 +245,7 @@ public class PlaceTile : MonoBehaviour
 
         GameObject turret;
         bool deleted = turrets.Remove(cellCoord, out turret);
+        turretTypes.Remove(cellCoord, out turretType);
         Destroy(turret, 0.1f);
         return deleted;
     }

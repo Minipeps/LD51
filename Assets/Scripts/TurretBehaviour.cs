@@ -14,6 +14,7 @@ public class TurretBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     public AudioClip[] clips;
 
+    public Item type;
 
     AudioSource turretAudioSource;
 
@@ -71,7 +72,7 @@ public class TurretBehaviour : MonoBehaviour
             direction.Normalize();
 
             var projectile = Instantiate(projectilePrefab, transform);
-            projectile.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) + 90f);
+            projectile.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
             projectile.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed);
 
             // Play sound
