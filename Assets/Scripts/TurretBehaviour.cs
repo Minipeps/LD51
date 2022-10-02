@@ -29,6 +29,12 @@ public class TurretBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_target && hasTarget)
+        {
+            var direction = (_target.transform.position - transform.position).normalized;
+            turretTop.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
+        }
+
         if (shootingWaitBuffer > 1.0f / fireRate)
         {
             if (!hasTarget)
@@ -57,7 +63,6 @@ public class TurretBehaviour : MonoBehaviour
         {
             direction.Normalize();
 
-            turretTop.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
             var projectile = Instantiate(projectilePrefab, transform);
             projectile.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) + 90f);
             projectile.GetComponent<Rigidbody2D>().AddForce(direction * projectileSpeed);

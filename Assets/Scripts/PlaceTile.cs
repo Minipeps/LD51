@@ -35,6 +35,8 @@ public class PlaceTile : MonoBehaviour
 
     Dictionary<Vector3Int, GameObject> turrets = new Dictionary<Vector3Int, GameObject>();
 
+    bool canPlaceTile = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,6 +50,9 @@ public class PlaceTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canPlaceTile)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             bool didBuy = false;
@@ -78,6 +83,37 @@ public class PlaceTile : MonoBehaviour
                 shop.SellItem();
         }
     }
+
+    public void EnablePlacement()
+    {
+        canPlaceTile = true;
+    }
+
+    public void DisablePlacement()
+    {
+        canPlaceTile = false;
+    }
+
+    public void ResetMap()
+    {
+       // Delete all turrets
+       foreach(var turret in turrets)
+        {
+            Destroy(turret.Value, 0.1f);
+        }
+        turrets.Clear();
+
+        // Remove all walls
+        for (int x = topLeftBounds.x; x < bottomRightBounds.x; ++x)
+        {
+            for (int y = bottomRightBounds.y; y < topLeftBounds.y; ++y)
+            {
+                tilemap.SetTile(new Vector3Int(x, y), backgroundTile);
+            }
+        }
+        RefreshPath(spawn.transform.position, core.transform.position);
+    }
+
     public bool RefreshPath(Vector3 start, Vector3 end)
     {
         var startCell = tilemap.WorldToCell(start);
@@ -151,7 +187,6 @@ public class PlaceTile : MonoBehaviour
         var tileCoord = getHoveredWorldCoord();
 
         var cellCoord = tilemap.WorldToCell(tileCoord);
-        Debug.Log("Clicked at " + cellCoord);
 
         if (!isInPlayableArea(cellCoord))
             return false;

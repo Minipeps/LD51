@@ -16,6 +16,10 @@ public class MobSpawner : MonoBehaviour
     int waveNumber = 1;
     int bossWaves = 0;
 
+    List<GameObject> bugs = new List<GameObject>();
+
+    public bool running = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,9 @@ public class MobSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!running)
+            return;
+
         if (lastSpawnTime > SPAWN_TIMER)
         {
             SpawnWave();
@@ -33,6 +40,20 @@ public class MobSpawner : MonoBehaviour
         {
             lastSpawnTime += Time.deltaTime;
         }
+    }
+
+    public void StopGame()
+    {
+        tileManager.DisablePlacement();
+        running = false;
+    }
+
+    public void ResetGame()
+    {
+        running = true;
+        waveNumber = 1;
+        bossWaves = 0;
+        lastSpawnTime = 0;
     }
 
     public int GetWaveNumber()
@@ -53,16 +74,26 @@ public class MobSpawner : MonoBehaviour
         waveNumber++;
     }
 
+    public void KillAllBugs()
+    {
+        foreach(var bug in bugs)
+        {
+            Destroy(bug, 0.1f);
+        }
+        bugs.Clear();
+    }
+
     private void SpawnNewBug(GameObject bugPrefab)
     {
         var newMob = Instantiate(bugPrefab, gameObject.transform).GetComponent<BugAI>();
         newMob.SetTileManager(tileManager);
         newMob.OnDeath += () => shop.AddToBank(newMob.GetReward());
+        bugs.Add(newMob.gameObject);
     }
 
     private List<int> GenerateWave()
     {
-        var waveCredits = Mathf.RoundToInt( Mathf.Sqrt( waveNumber ) * 100 * Mathf.Log10(waveNumber)) + 100 + bossWaves * 1000;
+        var waveCredits = Mathf.RoundToInt( Mathf.Sqrt( waveNumber ) * 100 * Mathf.Log10(waveNumber)) + 100 + bossWaves * 2000;
         var spentCredits = 0;
         
         List<int> indices = new List<int>();
@@ -84,9 +115,9 @@ public class MobSpawner : MonoBehaviour
             }
         }
 
-        Debug.Log("Boss wave");
         if (waveNumber > 0 && (waveNumber % 25) == 0)
         {
+            Debug.Log("Boss wave");
             bossWaves++;
             indices.Add(3);
         }

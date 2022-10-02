@@ -18,6 +18,11 @@ public class CoreBehaviour : MonoBehaviour
         
     }
 
+    public void ResetHealth()
+    {
+        health = 1000;
+    }
+
     public int GetHealth()
     {
         return health;
