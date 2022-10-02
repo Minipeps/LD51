@@ -16,6 +16,12 @@ public class Shop : MonoBehaviour
         bank = value;
         UpdateButtons();
     }
+
+    public void AddToBank(int value)
+    {
+        bank += value;
+        UpdateButtons();
+    }
     public bool CanAfford(int price) => price <= bank;
 
     public bool CanAffordCurrentItem() => CanAfford(selectedButton.price);
@@ -25,16 +31,8 @@ public class Shop : MonoBehaviour
         selectedButton = button;
     }
 
-    public void BuyItem()
-    {
-        bank -= selectedButton.price;
-    }
-
-    public void SellItem()
-    {
-        bank += selectedButton.price;
-        UpdateButtons();
-    }
+    public void BuyItem() => AddToBank(-selectedButton.price);
+    public void SellItem() => AddToBank(selectedButton.price);
 
     private void UpdateButtons()
     {

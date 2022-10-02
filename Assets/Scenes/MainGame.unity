@@ -1529,9 +1529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f58a4c9b0ae5654989f741283895aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mob: {fileID: 6980218959196241244, guid: 01b0e983a606650488fb9a2456c80136, type: 3}
+  bugPrefabs:
+  - {fileID: 6980218959196241244, guid: 01b0e983a606650488fb9a2456c80136, type: 3}
+  - {fileID: 3269058097392415650, guid: 00d7cc6efc222df49bcf5935a9b14f25, type: 3}
   core: {fileID: 635164272}
   tileManager: {fileID: 1650356627}
+  shop: {fileID: 523419875}
 --- !u!212 &1007222007
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class BugAI : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _target;
     [SerializeField]
     PlaceTile _tileManager;
 
@@ -19,11 +16,12 @@ public class BugAI : MonoBehaviour
     public int attack = 10;
 
     Vector3 currentMovement;
-    Vector3 currentLook;
 
     Vector3 _offset;
 
     int health;
+
+    public UnityAction OnDeath;
 
     void Start()
     {
@@ -51,9 +49,9 @@ public class BugAI : MonoBehaviour
         currentMovement = Vector3.Lerp(currentMovement, newMovement.normalized, movementInertia * Time.deltaTime);
     }
 
-    public void SetTarget(GameObject target)
+    public int GetReward()
     {
-        _target = target;
+        return Mathf.RoundToInt(maxHealth * movementSpeed * attack) / 10;
     }
 
     public List<Vector3Int> CurrentPath()
@@ -73,6 +71,7 @@ public class BugAI : MonoBehaviour
         UpdateHealthBar();
         if (health <= 0)
         {
+            OnDeath();
             Destroy(gameObject, 0.1f);
         }
     }

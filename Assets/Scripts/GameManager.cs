@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         healthBar.value = core.GetHealth();
         healthBar.GetComponentInChildren<Text>().text = "Health: " + core.GetHealth() + " / 1000";
         timerBar.value = 10 - spawner.GetTimeSinceLastSpawn();
-        timerBar.GetComponentInChildren<Text>().text = "Next: Wave " + (spawner.GetWaveNumber() + 1);
+        timerBar.GetComponentInChildren<Text>().text = "Next: Wave " + spawner.GetWaveNumber();
 
         bank.text = shop.GetBank() == 0 ? "0" : shop.GetBank().ToString("###,###");
     }

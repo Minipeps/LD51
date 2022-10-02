@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5521258346947893683}
   - component: {fileID: 6625419276097749411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 18390ed337c487845967fde48eccbf2d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6204a06bd78ef5141ba806889463c435, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.0867517, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2303925445315981485}
   - component: {fileID: 5038773400003378050}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5036225276474126518}
   - component: {fileID: 5142932340414472289}
   - component: {fileID: 5174219649936834761}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86c585d8393a3a43bff2dbbc7c2e92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
   _tileManager: {fileID: 0}
   healthBar: {fileID: 5038773400003378050}
   body: {fileID: 6625419276097749411}

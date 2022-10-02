@@ -7,32 +7,31 @@ public class MobSpawner : MonoBehaviour
 {
     int SPAWN_TIMER = 10;
 
-    public GameObject mob;
+    public GameObject[] bugPrefabs;
     public GameObject core;
     public PlaceTile tileManager;
+    public Shop shop;
 
     float lastSpawnTime = 0;
-    int waveNumber = 0;
+    int waveNumber = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-         Spawn();
+         SpawnWave();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (lastSpawnTime > SPAWN_TIMER)
         {
-            Spawn();
+            SpawnWave();
             lastSpawnTime = 0;
         }
         else
         {
             lastSpawnTime += Time.deltaTime;
-            //Debug.Log(lastSpawnTime);
         }
     }
 
@@ -46,12 +45,64 @@ public class MobSpawner : MonoBehaviour
         return lastSpawnTime;
     }
 
-    private void Spawn()
+    private void SpawnWave()
     {
+        List<int> bugsToSpawn = GenerateWave();
+        StartCoroutine(SpawnBugs(bugsToSpawn));
+        
         waveNumber++;
+    }
 
-        var newMob = Instantiate(mob, gameObject.transform).GetComponent<BugAI>();
-        newMob.SetTarget(core);
+    private void SpawnNewBug(GameObject bugPrefab)
+    {
+        var newMob = Instantiate(bugPrefab, gameObject.transform).GetComponent<BugAI>();
         newMob.SetTileManager(tileManager);
+        newMob.OnDeath += () => shop.AddToBank(newMob.GetReward());
+    }
+
+    private List<int> GenerateWave()
+    {
+        var waveCredits = waveNumber * 100;
+        var spentCredits = 0;
+        
+        List<int> indices = new List<int>();
+
+        List<int> indexPool = GetIndexPool();
+        while (spentCredits < waveCredits && indexPool.Count > 0)
+        {
+            int index = indexPool[Random.Range(0, indexPool.Count)];
+            int reward = bugPrefabs[index].GetComponent<BugAI>().GetReward();
+            if (spentCredits + reward < waveCredits)
+            {
+                spentCredits += reward;
+                indices.Add(index);
+                indexPool = GetIndexPool();
+            }
+            else
+            {
+                indexPool.Remove(index);
+            }
+        }
+        Debug.Log("Credits: available " + waveCredits + ", spent " + spentCredits);
+        return indices;
+    }
+
+    private List<int> GetIndexPool()
+    {
+        List<int> pool = new List<int>();
+        for (int i = 0; i < bugPrefabs.Length; ++i)
+            pool.Add(i);
+
+        return pool;
+    }
+
+    IEnumerator SpawnBugs(List<int> bugsToSpawn)
+    {
+        foreach (int bugType in bugsToSpawn)
+        {
+            SpawnNewBug(bugPrefabs[bugType]);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
     }
 }
