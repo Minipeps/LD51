@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
             bank.text = shop.GetBank() == 0 ? "0" : shop.GetBank().ToString("###,###");
 
-            if (core.GetHealth() <= 990)
+            if (core.GetHealth() <= 0)
             {
                 GameOver();
             }

@@ -7,6 +7,18 @@ public class ProjectileDamage : MonoBehaviour
     public int damage = 10;
     bool used = false;
 
+    private float lifeTime = 0;
+
+    private float MAX_LIFETIME = 10;
+
+    private void Update()
+    {
+        if (lifeTime > MAX_LIFETIME)
+            Destroy(gameObject, 0.01f);
+        else
+            lifeTime += Time.deltaTime;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BugAI bug;

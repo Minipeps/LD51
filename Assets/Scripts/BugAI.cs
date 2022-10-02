@@ -77,6 +77,7 @@ public class BugAI : MonoBehaviour
     public void Hurt(int damage)
     {
         health -= damage;
+        if (health < 0) health = 0;
         UpdateHealthBar();
         if (health <= 0)
         {

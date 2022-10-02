@@ -104,9 +104,9 @@ public class PlaceTile : MonoBehaviour
         turrets.Clear();
 
         // Remove all walls
-        for (int x = topLeftBounds.x; x < bottomRightBounds.x; ++x)
+        for (int x = topLeftBounds.x + 1; x < bottomRightBounds.x; ++x)
         {
-            for (int y = bottomRightBounds.y; y < topLeftBounds.y; ++y)
+            for (int y = bottomRightBounds.y + 1; y < topLeftBounds.y; ++y)
             {
                 tilemap.SetTile(new Vector3Int(x, y), backgroundTile);
             }

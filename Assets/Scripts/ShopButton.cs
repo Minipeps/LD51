@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ShopButton : MonoBehaviour
 {
     Button btn;
+    public Text priceTag;
 
     public int price;
 
@@ -16,9 +17,10 @@ public class ShopButton : MonoBehaviour
         btn.interactable = false;
     }
 
-    public void Unlock()
+    public void IsAvailable(bool value)
     {
-        btn.interactable = true;
+        btn.interactable = value;
+        priceTag.color = value ? Color.white : Color.red;
     }
 
     public void SetInteractable(bool value)

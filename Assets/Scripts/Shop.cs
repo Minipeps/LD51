@@ -39,8 +39,7 @@ public class Shop : MonoBehaviour
         ShopButton[] buttons = GetComponentsInChildren<ShopButton>();
         foreach(var button in buttons)
         {
-            if (CanAfford(button.price))
-                button.Unlock();
+            button.IsAvailable(CanAfford(button.price));
         }
     }
 }

@@ -21,9 +21,16 @@ public class TurretBehaviour : MonoBehaviour
 
     private bool hasTarget;
 
+    private List<Vector2> rayDirections;
+
     void Awake()
     {
         turretAudioSource = GetComponent<AudioSource>();
+        rayDirections = new List<Vector2>();
+        for (float theta = 0; theta < 360; theta += 15)
+        {
+            rayDirections.Add(new Vector2(Mathf.Cos(theta * Mathf.Deg2Rad), Mathf.Sin(theta * Mathf.Deg2Rad)));
+        }
     }
 
     // Update is called once per frame
@@ -78,13 +85,7 @@ public class TurretBehaviour : MonoBehaviour
 
     private bool SelectNewTarget()
     {
-        List<Vector2> directions = new List<Vector2>();
-        for (float theta = 0; theta < 360; theta += 15)
-        {
-            directions.Add(new Vector2( Mathf.Cos(theta * Mathf.Deg2Rad), Mathf.Sin(theta * Mathf.Deg2Rad)));
-        }
-
-        foreach( var dir in directions)
+        foreach( var dir in rayDirections)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, maxRange, LayerMask.GetMask("Bug"));
             if (hit.collider != null)

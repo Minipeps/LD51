@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1941821836141479390
+--- !u!1001 &4122836319866319394
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -13,27 +13,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 614647171157788194, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: maxRange
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 614647171157788194, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: projectileSpeed
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614647171157788194, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 6992928461967624932, guid: cc7401044f6cd6242a2400371c20df64, type: 3}
+      objectReference: {fileID: 5214965671713719696, guid: 43cf585a935ad6f4bb6f35a1f3a9f935, type: 3}
     - target: {fileID: 2703516141815363234, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2703516141815363234, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: m_Color.g
-      value: 0.12503317
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2703516141815363234, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529103746674397991, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
+      propertyPath: m_Pitch
+      value: -2.14
       objectReference: {fileID: 0}
     - target: {fileID: 5725331636022763208, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: m_RootOrder
@@ -81,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6176383121679529963, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
       propertyPath: m_Name
-      value: TurretHeavy
+      value: TurretBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bdff901c1d8db64e91784ed767cb5ce, type: 3}
