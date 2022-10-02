@@ -182,6 +182,13 @@ public class PlaceTile : MonoBehaviour
             return false;
         }
 
+        // Check if there is already a turret
+        if (turrets.ContainsKey(cellCoord))
+        {
+            Debug.Log("There is already a turret here!");
+            return false;
+        }
+
         Vector3 offset = tilemap.cellSize / 2;
         var turret = Instantiate(selectedTurret, tilemap.CellToWorld(cellCoord) + offset, Quaternion.identity);
         turrets.Add(cellCoord, turret);
