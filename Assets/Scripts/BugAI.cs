@@ -11,6 +11,7 @@ public class BugAI : MonoBehaviour
     PlaceTile _tileManager;
 
     public SpriteRenderer healthBar;
+    public SpriteRenderer body;
 
     public float movementSpeed = 10f;
     public float movementInertia = 200f;
@@ -20,10 +21,13 @@ public class BugAI : MonoBehaviour
     Vector3 currentMovement;
     Vector3 currentLook;
 
+    Vector3 _offset;
+
     int health;
 
     void Start()
     {
+        _offset = _tileManager.tilemap.cellSize / 2;
         health = maxHealth;    
         healthBar.enabled = false;
     }
@@ -32,18 +36,19 @@ public class BugAI : MonoBehaviour
     void Update()
     {
         transform.position += currentMovement * Time.deltaTime * movementSpeed;
-        // TODO: look toward moving direction
+        body.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Rad2Deg * Mathf.Atan2(currentMovement.y, currentMovement.x) - 90f);
+
 
         var index = FindClosestPathTile();
         if (index < CurrentPath().Count - 1)
-            UpdateMovementData(CurrentPath()[index+1] + new Vector3Int(1, 0) - transform.position);
+            UpdateMovementData(_tileManager.tilemap.CellToWorld(CurrentPath()[index+1] ) + _offset - transform.position);
         else
             UpdateMovementData(Vector3.zero);
     }
 
     public void UpdateMovementData(Vector3 newMovement)
     {
-        currentMovement = Vector3.Lerp(currentMovement, newMovement, movementInertia * Time.deltaTime);
+        currentMovement = Vector3.Lerp(currentMovement, newMovement.normalized, movementInertia * Time.deltaTime);
     }
 
     public void SetTarget(GameObject target)
@@ -85,7 +90,7 @@ public class BugAI : MonoBehaviour
         for (int i = 0; i < CurrentPath().Count; ++i)
         {
             var tilePos = _tileManager.tilemap.CellToWorld(CurrentPath()[i]);
-            float d = Vector3.Distance(transform.position, tilePos);
+            float d = Vector3.Distance(transform.position, tilePos + _offset);
             if (d < bestDistance)
             {
                 bestDistance = d;

@@ -38,13 +38,11 @@ public class NavigateTilemap : MonoBehaviour
     };
 
     Tilemap tilemap;
-    TilemapCollider2D tilemapCollider;
 
     // Start is called before the first frame update
     void Awake()
     {
         tilemap = GetComponent<Tilemap>();
-        tilemapCollider = GetComponent<TilemapCollider2D>();
     }
 
     // Update is called once per frame
@@ -82,6 +80,9 @@ public class NavigateTilemap : MonoBehaviour
                 }
             }
 
+            closedList.Add(currentNode);
+            openedList.Remove(currentNode);
+
             // End condition
             if (currentNode.Equals(endNode))
             {
@@ -113,22 +114,26 @@ public class NavigateTilemap : MonoBehaviour
                 }
             }
 
-            closedList.Add(currentNode);
-            openedList.Remove(currentNode);
-
             // Loop through children
             foreach (var child in children)
             {
-                if (!closedList.Contains(child))
+                bool addChild = true;
+                foreach (var node in closedList)
+                {
+                    if (node.Equals(child))
+                        addChild = false;
+
+                }
+                if (addChild)
                 {
                     child.g = currentNode.g + 1;
                     child.h = Mathf.RoundToInt(Mathf.Pow(child.GetPosition().x - endNode.GetPosition().x, 2) + Mathf.Pow(child.GetPosition().y - endNode.GetPosition().y, 2));
                     child.f = child.g + child.h;
 
-                    bool addChild = true;
+                    // Only add the child if there is not already a shorted path leading to it
                     foreach (var openedNode in openedList)
                     {
-                        if (child == openedNode && child.g > openedNode.g)
+                        if (child.Equals(openedNode) && child.g > openedNode.g)
                         {
                             addChild = false;
                         }

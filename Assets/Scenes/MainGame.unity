@@ -13017,7 +13017,7 @@ MonoBehaviour:
   shop: {fileID: 523419875}
   core: {fileID: 635164276}
   spawner: {fileID: 1007222006}
-  startCoins: 200
+  startCoins: 2000
 --- !u!1 &1702078696
 GameObject:
   m_ObjectHideFlags: 0
