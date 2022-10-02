@@ -18,7 +18,6 @@ public class MobSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         SpawnWave();
     }
 
     // Update is called once per frame
@@ -62,7 +61,7 @@ public class MobSpawner : MonoBehaviour
 
     private List<int> GenerateWave()
     {
-        var waveCredits = waveNumber * 100;
+        var waveCredits = Mathf.RoundToInt( Mathf.Log10( waveNumber * 30 ) * 50);
         var spentCredits = 0;
         
         List<int> indices = new List<int>();
@@ -71,7 +70,7 @@ public class MobSpawner : MonoBehaviour
         while (spentCredits < waveCredits && indexPool.Count > 0)
         {
             int index = indexPool[Random.Range(0, indexPool.Count)];
-            int reward = bugPrefabs[index].GetComponent<BugAI>().GetReward();
+            int reward = bugPrefabs[index].GetComponent<BugAI>().GetCreditCost();
             if (spentCredits + reward < waveCredits)
             {
                 spentCredits += reward;
@@ -90,7 +89,10 @@ public class MobSpawner : MonoBehaviour
     private List<int> GetIndexPool()
     {
         List<int> pool = new List<int>();
-        for (int i = 0; i < bugPrefabs.Length; ++i)
+        // Base bugs are more common
+        pool.Add(0);
+        pool.Add(0);
+        for (int i = 1; i < bugPrefabs.Length; ++i)
             pool.Add(i);
 
         return pool;

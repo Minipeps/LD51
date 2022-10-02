@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    enum GameState
+    public enum GameState
     {
         StartScreen,
         Playing,
@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     // Game settings
     public int startCoins = 1000;
 
+    public GameState state = GameState.Playing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +37,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Update UI
-        healthBar.value = core.GetHealth();
+        healthBar.value = core.GetHealth() <= 0 ? 0 : core.GetHealth();
         healthBar.GetComponentInChildren<Text>().text = "Health: " + core.GetHealth() + " / 1000";
         timerBar.value = 10 - spawner.GetTimeSinceLastSpawn();
         timerBar.GetComponentInChildren<Text>().text = "Next: Wave " + spawner.GetWaveNumber();
 
         bank.text = shop.GetBank() == 0 ? "0" : shop.GetBank().ToString("###,###");
+
+        if (core.GetHealth() <= 0)
+        {
+            state = GameState.GameOver;
+            // TODO: handle restart
+        }
     }
 }

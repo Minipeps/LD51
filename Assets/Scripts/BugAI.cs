@@ -48,10 +48,20 @@ public class BugAI : MonoBehaviour
     {
         currentMovement = Vector3.Lerp(currentMovement, newMovement.normalized, movementInertia * Time.deltaTime);
     }
+ 
+    public int GetScore()
+    {
+        return Mathf.RoundToInt(maxHealth * movementSpeed * attack);
+    }
+
+    public int GetCreditCost()
+    {
+        return GetScore() / 10;
+    }
 
     public int GetReward()
     {
-        return Mathf.RoundToInt(maxHealth * movementSpeed * attack) / 10;
+        return GetScore() / 50;
     }
 
     public List<Vector3Int> CurrentPath()
@@ -66,7 +76,6 @@ public class BugAI : MonoBehaviour
 
     public void Hurt(int damage)
     {
-        Debug.Log("hurt");
         health -= damage;
         UpdateHealthBar();
         if (health <= 0)

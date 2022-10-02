@@ -5,12 +5,14 @@ using UnityEngine;
 public class ProjectileDamage : MonoBehaviour
 {
     int damage = 10;
+    bool used = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BugAI bug;
-        if (collision.gameObject.TryGetComponent(out bug))
+        if (!used && collision.gameObject.TryGetComponent(out bug))
         {
+            used = true;
             bug.Hurt(damage);
             Destroy(gameObject, 0.01f);
         }
