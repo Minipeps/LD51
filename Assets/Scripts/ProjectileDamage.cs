@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileDamage : MonoBehaviour
 {
-    int damage = 10;
+    public int damage = 10;
     bool used = false;
 
     private void OnTriggerEnter2D(Collider2D collision)

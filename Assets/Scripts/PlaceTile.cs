@@ -124,6 +124,14 @@ public class PlaceTile : MonoBehaviour
         if (!isInPlayableArea(cellCoord) || !shop.CanAffordCurrentItem())
             return false;
 
+        // Check tile does not have a wall
+        var tile = tilemap.GetTile<Tile>(cellCoord);
+        if (tile.colliderType != Tile.ColliderType.None)
+        {
+            Debug.Log("There is already a wall here!");
+            return false;
+        }
+
         tilemap.SetTile(cellCoord, selectedTile);
 
         // Check whether a tile can be placed at that emplacement
@@ -166,7 +174,7 @@ public class PlaceTile : MonoBehaviour
         if (!isInPlayableArea(cellCoord) || ! shop.CanAffordCurrentItem())
             return false;
 
-        // Check tile can get a turret
+        // Check tile has a wall
         var tile = tilemap.GetTile<Tile>(cellCoord);
         if (tile.colliderType == Tile.ColliderType.None)
         {

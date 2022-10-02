@@ -222,7 +222,7 @@ MonoBehaviour:
   movementSpeed: 2
   movementInertia: 5
   maxHealth: 20
-  attack: 10
+  attack: 20
 --- !u!58 &5142932340414472289
 CircleCollider2D:
   m_ObjectHideFlags: 0

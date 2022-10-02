@@ -14,6 +14,7 @@ public class MobSpawner : MonoBehaviour
 
     float lastSpawnTime = 0;
     int waveNumber = 1;
+    int bossWaves = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +62,7 @@ public class MobSpawner : MonoBehaviour
 
     private List<int> GenerateWave()
     {
-        var waveCredits = Mathf.RoundToInt( Mathf.Log10( waveNumber * 30 ) * 50);
+        var waveCredits = Mathf.RoundToInt( Mathf.Sqrt( waveNumber ) * 100 * Mathf.Log10(waveNumber)) + 100 + bossWaves * 1000;
         var spentCredits = 0;
         
         List<int> indices = new List<int>();
@@ -82,6 +83,14 @@ public class MobSpawner : MonoBehaviour
                 indexPool.Remove(index);
             }
         }
+
+        Debug.Log("Boss wave");
+        if (waveNumber > 0 && (waveNumber % 25) == 0)
+        {
+            bossWaves++;
+            indices.Add(3);
+        }
+
         Debug.Log("Credits: available " + waveCredits + ", spent " + spentCredits);
         return indices;
     }
@@ -94,6 +103,7 @@ public class MobSpawner : MonoBehaviour
         pool.Add(0);
         for (int i = 1; i < bugPrefabs.Length; ++i)
             pool.Add(i);
+
 
         return pool;
     }

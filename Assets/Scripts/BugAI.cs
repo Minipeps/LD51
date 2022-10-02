@@ -61,7 +61,7 @@ public class BugAI : MonoBehaviour
 
     public int GetReward()
     {
-        return GetScore() / 50;
+        return GetScore() / 40;
     }
 
     public List<Vector3Int> CurrentPath()

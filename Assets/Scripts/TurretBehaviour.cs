@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TurretBehaviour : MonoBehaviour
 {
-    public int fireRate = 10;
+    public float fireRate = 10;
     public int rotationSpeed = 1;
     public int projectileSpeed = 1;
     public int maxRange = 5;
@@ -48,7 +48,6 @@ public class TurretBehaviour : MonoBehaviour
     {
         if (!_target)
         {
-            Debug.Log("Lost target");
             hasTarget = false;
             return;
         }
@@ -68,44 +67,27 @@ public class TurretBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Lost target");
             hasTarget = false;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //BugAI bug;
-        //if (!hasTarget && collision.gameObject.TryGetComponent(out bug))
-        //{
-        //    Debug.Log("Target aquired");
-        //    _target = collision.gameObject;
-        //    hasTarget = true;
-        //}
-    }
-
     private bool SelectNewTarget()
     {
-        List<Vector2> directions = new List<Vector2>() {
-            Vector2.up,
-            Vector2.up + Vector2.left,
-            Vector2.left,
-            Vector2.left + Vector2.down,
-            Vector2.down,
-            Vector2.down + Vector2.right,
-            Vector2.right,
-            Vector2.right + Vector2.up };
+        List<Vector2> directions = new List<Vector2>();
+        for (float theta = 0; theta < 360; theta += 15)
+        {
+            directions.Add(new Vector2( Mathf.Cos(theta * Mathf.Deg2Rad), Mathf.Sin(theta * Mathf.Deg2Rad)));
+        }
+
         foreach( var dir in directions)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, maxRange, LayerMask.GetMask("Bug"));
             if (hit.collider != null)
             {
-                Debug.Log("Target aquired");
                 _target = hit.collider.gameObject;
                 return true;
             }
         }
-        Debug.Log("No target found in range");
         return false;
     }
 }
